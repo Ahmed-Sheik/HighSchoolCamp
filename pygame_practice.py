@@ -20,52 +20,85 @@ pygame.display.set_caption("First Pygame")
 done = False
 clock = pygame.time.Clock()
 
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BROWN = (165, 42, 42)
+SIENNA = (160,82,45)
+
+
+x_speed = 0
+y_speed = 0
+
+x_coord = 10
+y_coord = 10
+
+ball_pos = 0
+ball_change = 1
+
+
+def draw_stick_stick_figure(screen, x, y):
+    pygame.draw.ellipse(screen, RED, [40 + x, 200 + ball_pos + y, 40, 40])
+
+    pygame.draw.line(screen, BLACK, [200 + x, 350 + y], [200 + x, 500 + y], 5)
+
+    pygame.draw.line(screen, BLACK, [200 + x, 400 + y], [120 + x, 400 + y], 5)
+
+    pygame.draw.line(screen, BLACK, [200 + x, 400 + y], [120 + x, 400 + y], 5)
+
+    pygame.draw.line(screen, BLACK, [200 + x, 500 + y], [100 + x, 650 + y], 5)
+
+    pygame.draw.line(screen, BLACK, [200 + x, 500 + y], [250 + x, 650 + y], 5)
+
+    pygame.draw.circle(screen, BLACK, [200 + x, 225 + y], 100)
+
+    pygame.draw.circle(screen, SIENNA, [200 + x, 250 + y], 100)
+
+    pygame.draw.circle(screen, BLACK, [135 + x, 235 + y], 15)
+
+    pygame.draw.circle(screen, BLACK, [240 + x, 230 + y], 15)
+
+    pygame.draw.ellipse(screen, BLACK, [175 + x, 300 + y, 40, 15])
+
 # Loop as long as done == False
 while not done:
+    ball_pos += ball_change
+    if ball_pos > 300:
+        ball_change -= 30
+    elif ball_pos < 25:
+        ball_change += 30
+
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        x_speed = -10
+    if keys[pygame.K_RIGHT]:
+        x_speed = 10
+    if keys[pygame.K_UP]:
+        y_speed = -10
+    if keys[pygame.K_DOWN]:
+        y_speed = 10
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    BLUE = (0, 0, 255)
-    GREEN = (0, 255, 0)
-    RED = (255, 0, 0)
-    BROWN = (165, 42, 42)
-    SIENNA = (160,82,45)
+
+    # Move the object according to the speed vector.
+    x_coord += x_speed
+    y_coord += y_speed
+
+    # Reset x_speed and y_speed for the next frame
+    x_speed = 0
+    y_speed = 0
 
 
     PI = 3.141592653
 
     screen.fill(WHITE)
 
-    pygame.draw.line(screen, BLACK, [200, 350], [200, 500], 5)
-
-    pygame.draw.line(screen, BLACK, [200, 400], [160, 400], 5)
-
-    pygame.draw.line(screen, BLACK, [200, 400], [240, 400], 5)
-
-    pygame.draw.line(screen, BLACK, [200, 500], [100, 650], 5)
-
-    pygame.draw.line(screen, BLACK, [200, 500], [250, 650], 5)
-
-    pygame.draw.circle(screen, BLACK, [200, 225], 100)
-
-    pygame.draw.circle(screen, SIENNA, [200, 250], 100)
-
-    pygame.draw.circle(screen, BLACK, [135, 235], 15)
-
-    pygame.draw.circle(screen, BLACK, [240, 230], 15)
-
-    pygame.draw.ellipse(screen, BLACK, [175, 300, 40, 15])
-
-
-
-
-
-
-
-
+    draw_stick_stick_figure(screen, x_coord, y_coord)
 
 
     # Go ahead and update the screen with what we've drawn.
