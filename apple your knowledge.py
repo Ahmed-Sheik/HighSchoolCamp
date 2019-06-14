@@ -48,5 +48,5 @@ while first < second:
 x = input ("Enter response ('Y', 'y', 'yes', 'YES' or 'N', 'n', 'no', 'NO'):")
 
 while x not in ['Y', 'y', 'yes', 'YES' or 'N', 'n', 'no', 'NO']
-    
+
 
